@@ -41,7 +41,7 @@ footer {
   width: 90%;
   max-width: 940px;
 
-  margin: 0 auto;
+  margin: 0 auto; /*  to align in the center */
 }
 
 /* HEADER */
