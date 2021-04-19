@@ -7,7 +7,9 @@ routes.get("/", (req, res) => {
 });
 
 routes.get("/products/create", ProductController.create);
+rouetes.post('/products', ProductController.post);
 
+//ALIAS - Atalhos
 routes.get("/ads/create", (req, res) => {
   return res.redirect('/products/create');
 });
