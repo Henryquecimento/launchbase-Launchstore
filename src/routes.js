@@ -1,13 +1,13 @@
 const express = require("express");
 const routes = express.Router();
-const ProductController = require('./app/controllers/product');
+const ProductController = require('./app/controllers/ProductController');
 
 routes.get("/", (req, res) => {
   return res.render('layout.njk');
 });
 
 routes.get("/products/create", ProductController.create);
-rouetes.post('/products', ProductController.post);
+routes.post('/products', ProductController.post);
 
 //ALIAS - Atalhos
 routes.get("/ads/create", (req, res) => {
