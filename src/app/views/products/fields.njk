@@ -24,15 +24,11 @@
     <div>Descrição</div>
     <div>
         <textarea 
-            name="description">
-            {{ product.description }}
-            </textarea>
+            name="description">{{ product.description }}</textarea>
     </div>
 </div>
 
-
 {# Photo fields #}
-
 
 <div class="item">
     <div>Valor</div>
@@ -43,14 +39,13 @@
             placeholder='Preço do Produto'
             value='{{ product.price }}'
             onkeydown='Mask.apply(this, "formatBRL")' 
-            > {# this == input #}
+        > {# this == input #}
     </div>
 
     {% if product.old_price %}
         <input type="hidden" name="old_price" value={{product.old_price}}>
     {% endif %}
 </div>
-
 
 <div class="item">
     <div>Quantidade</div>
@@ -63,7 +58,6 @@
     </div>
 </div>
 
-
 {% if product.status %}
 <div class="item">
     <div>Disponível ?</div>
@@ -74,7 +68,7 @@
                 name="status" 
                 value="1" 
                 {% if product.status == '1' %} checked="checked" {% endif %}
-                > SIM
+            > SIM
         </span>
         <span>
             <input 
@@ -82,7 +76,7 @@
                 name="status"
                 value="0" 
                 {% if product.status == '0' %} checked="checked" {% endif %}
-                > NÃO
+            > NÃO
         </span>
     </div>
 </div>
