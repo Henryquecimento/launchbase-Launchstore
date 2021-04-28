@@ -3,6 +3,7 @@
 :root {
   --primary-color: #fd951f;
   --secondary-color: #1fd4fd;
+  --red-color: #f25449;
 }
 
 * {
@@ -213,4 +214,13 @@ form .item textarea {
 
 form .fields {
   margin-bottom: 64px;
+}
+
+/* Delete button */
+.button.delete {
+  background-color: var(--red-color);
+}
+
+.button.delete:hover {
+  background-color: #d02216;
 }

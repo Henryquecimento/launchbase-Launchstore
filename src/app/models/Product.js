@@ -26,11 +26,14 @@ module.exports = {
             data.description,
             data.old_price || data.price,
             data.price,
-            data.quantity || 1,
-            data.status,
+            data.quantity,
+            data.status || 1,
         ];
 
 
         return db.query(query, values);
+    },
+    find(id) {
+        return db.query(`SELECT * FROM products WHERE id = $1`, [id]);
     }
 }
