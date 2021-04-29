@@ -17,4 +17,10 @@ module.exports = {
       format: `${day}/${month}/${year}`,
     };
   },
+  formatPrice(price) {
+    return value = new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+  }).format(Number(price/100));
+  }
 };
