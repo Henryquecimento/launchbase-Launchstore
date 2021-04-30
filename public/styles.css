@@ -2,7 +2,7 @@
 
 :root {
   --primary-color: #fd951f;
-  --secondary-color: #1fd4fd;
+  --secondary-color: #224bee;
   --red-color: #f25449;
 }
 
@@ -162,6 +162,10 @@ section.form .header h3 {
   margin-bottom: 16px;
 }
 
+form .fields {
+  margin-bottom: 64px;
+}
+
 /* Form Items */
 
 form .item {
@@ -208,15 +212,36 @@ form .item select {
   background-size: 0.65em auto, 100%;
 }
 
+/* Available - field */
+form .item span {
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  border-radius: 16px;
+  color: #eeee;
+  margin-right: 4px;
+  margin-top: 8px;
+  display: inline-flex;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 12px;
+  align-content: center;
+  gap: 4px;
+}
+
 form .item textarea {
   min-height: 150px;
 }
 
-form .fields {
-  margin-bottom: 64px;
+/* Edit and Delete button */
+
+.button.edit {
+  background-color: var(--secondary-color);
 }
 
-/* Delete button */
+.button.edit:hover {
+  background-color: #1030b3;
+}
+
 .button.delete {
   background-color: var(--red-color);
 }
