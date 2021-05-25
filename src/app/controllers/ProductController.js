@@ -27,10 +27,10 @@ module.exports = {
             }
         }
 
-        let results = await Product.create(req.body);
+        const results = await Product.create(req.body);
         const productId = results.rows[0].id;
 
-        return res.redirect(`products/${productId}`);
+        return res.redirect(`/products/${productId}`);
 
     },
 

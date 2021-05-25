@@ -28,7 +28,22 @@
     </div>
 </div>
 
-{# Photo fields #}
+<div class="item">
+    <div>Fotos</div>
+    <div>
+        <div id="photos-upload">
+            <input 
+                 id="photo-upload"
+                type="file" 
+                name="photos"
+                multiple
+                accept='images/*'
+                >
+                <p>Selecione até 6 fotos</p>
+        </div>
+        <div id="photos-preview"></div>
+    </div>
+</div>
 
 <div class="item">
     <div>Valor</div>
@@ -43,7 +58,7 @@
     </div>
 
     {% if product.old_price %}
-        <input type="hidden" name="old_price" value={{product.old_price}}>
+        <input type="hidden" name="old_price" value='{{product.old_price}}'>
     {% endif %}
 </div>
 
