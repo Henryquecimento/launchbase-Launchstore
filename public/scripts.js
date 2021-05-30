@@ -16,18 +16,12 @@ const Mask = {
 }
 
 const PhotosUpload = {
+  preview: document.querySelector('#photos-preview'),
   uploadLimit: 6,
   handleFilesUpload(event) {
-    const { files: filesList } = event.target;
-    const { uploadLimit } = PhotosUpload;
+    let { files: filesList } = event.target;
 
-    if (filesList.length > uploadLimit) {
-      alert(`Envie no máximo ${uploadLimit} arquivos!`);
-
-      event.preventDefault();
-
-      return
-    }
+    if (PhotosUpload.hasLimit(event)) return
 
     Array.from(filesList).forEach(file => {
       const reader = new FileReader();
@@ -36,17 +30,38 @@ const PhotosUpload = {
         const image = new Image();
         image.src = String(reader.result);
 
-        const div = document.createElement('div');
-        div.classList.add('photo');
+        const div = PhotosUpload.createContainer(image);
 
-        div.onclick = () => alert('Remover foto');
-
-        div.appendChild(image);
-
-        document.querySelector('#photos-preview').appendChild(div);
+        PhotosUpload.preview.appendChild(div);
       }
 
       reader.readAsDataURL(file);
     })
+  },
+  hasLimit(event) {
+    const { uploadLimit } = PhotosUpload;
+    const { files: filesList } = event.target;
+
+    if (filesList.length > uploadLimit) {
+      alert(`Envie no máximo ${uploadLimit} arquivos!`);
+
+      event.preventDefault();
+
+      return true;
+    }
+
+    return false;
+  },
+  createContainer(image) {
+    const div = document.createElement('div');
+    div.classList.add('photo');
+
+    div.onclick = () => alert('Remover foto');
+
+    div.appendChild(image);
+
+    return div;
+
   }
+
 }
