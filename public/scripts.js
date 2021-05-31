@@ -19,11 +19,11 @@ const PhotosUpload = {
   preview: document.querySelector('#photos-preview'),
   uploadLimit: 6,
   handleFilesUpload(event) {
-    let { files: filesList } = event.target;
+    const { files: fileList } = event.target;
 
     if (PhotosUpload.hasLimit(event)) return
 
-    Array.from(filesList).forEach(file => {
+    Array.from(fileList).forEach(file => {
       const reader = new FileReader();
 
       reader.onload = () => {
@@ -40,10 +40,10 @@ const PhotosUpload = {
   },
   hasLimit(event) {
     const { uploadLimit } = PhotosUpload;
-    const { files: filesList } = event.target;
+    const { files: fileList } = event.target;
 
-    if (filesList.length > uploadLimit) {
-      alert(`Envie no máximo ${uploadLimit} arquivos!`);
+    if (fileList.length > uploadLimit) {
+      alert(`Envie no máximo ${uploadLimit} fotos!`);
 
       event.preventDefault();
 
@@ -56,12 +56,28 @@ const PhotosUpload = {
     const div = document.createElement('div');
     div.classList.add('photo');
 
-    div.onclick = () => alert('Remover foto');
+    div.onclick = PhotosUpload.removePhoto
 
     div.appendChild(image);
 
+    div.appendChild(PhotosUpload.getRemoveButton());
+
     return div;
 
+  },
+  getRemoveButton() {
+    const button = document.createElement('i');
+    button.classList.add('material-icons');
+    button.innerHTML = "close";
+
+    return button;
+  },
+  removePhoto(event) {
+    const photoDiv = event.target.parentNode;
+    const photosArray = Array.from(PhotosUpload.preview.children);
+    const index = photosArray.indexOf(photoDiv);
+
+    photoDiv.remove();
   }
 
 }

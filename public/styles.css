@@ -275,7 +275,7 @@ form .item #photos-upload p {
   font-size: 14px;
 }
 
-form .item #photo-input {
+form .item #photos-input {
   position: absolute;
   top: 0;
   left: 0;
@@ -304,4 +304,37 @@ form .item #photos-preview img {
   object-fit: cover;
   border-radius: 8px;
   box-shadow: 0 2px 2px 1px rgba(60, 60, 60, 0.4);
+}
+
+/* Remove button - Photos Preview */
+
+#photos-preview .photo {
+  position: relative;
+}
+
+#photos-preview .photo i {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  color: red;
+  background-color: rgba(255, 255, 255, 0.6);
+
+  width: 100%;
+  height: 100%;
+
+  font-size: 500%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: opacity 300ms;
+
+  opacity: 0;
+  cursor: pointer;
+}
+
+#photos-preview .photo:hover i {
+  opacity: 1;
 }
