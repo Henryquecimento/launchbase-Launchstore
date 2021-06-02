@@ -25,6 +25,10 @@ module.exports = {
 				}
 			}
 
+			if (req.files.lenght == 0) {
+				return res.send('Please, send at least one image');
+			}
+
 			const results = await Product.create(req.body);
 			const productId = results.rows[0].id;
 
