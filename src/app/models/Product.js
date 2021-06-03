@@ -14,7 +14,7 @@ module.exports = {
                 status
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING id`;
-        
+
         //R$1,00
         data.price = data.price.replace(/\D/g, "");
         //100
@@ -66,5 +66,10 @@ module.exports = {
     },
     delete(id) {
         return db.query(`DELETE FROM products WHERE id = $1`, [id]);
+    },
+    files(id) {
+        return db.query(`
+            SELECT * FROM files WHERE product_id = $1        
+        `, [id]);
     }
 }
