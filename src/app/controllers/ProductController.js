@@ -53,10 +53,19 @@ module.exports = {
 			product.old_price = formatPrice(product.old_price);
 			product.price = formatPrice(product.price);
 
+			// Get Categories
 			results = await Category.all();
 			const categories = results.rows;
 
-			return res.render("products/edit.njk", { product, categories });
+			// GET Files
+			results = await Product.files(req.params.id);
+			let files = results.rows; // ARRAY
+			files = files.map(file => ({
+				...file,
+				src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+			}))
+
+			return res.render("products/edit.njk", { product, categories, files });
 		} catch (err) {
 			throw new Error(err);
 		}
