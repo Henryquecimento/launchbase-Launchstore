@@ -81,6 +81,21 @@ module.exports = {
 				}
 			}
 
+			// Remove photos from DB
+			if (req.body.removed_files) {
+				// 1,2,
+				const removedFiles = req.body.removed_files.split(',');
+				// ['1', '2', '']
+				const lastIndex = removedFiles.length - 1;
+
+				//['1','2']
+				removedFiles.splice(lastIndex, 1);
+
+				const removedFilesPromise = removedFiles.map(id => File.delete(id));
+
+				await Promise.all(removedFilesPromise);
+			}
+
 			req.body.price = req.body.price.replace(/\D/g, ""); // It'll clean the formated number
 
 			if (req.body.old_price != req.body.price) {
