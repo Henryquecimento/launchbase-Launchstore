@@ -129,7 +129,7 @@ module.exports = {
 			await Product.delete(req.body.id);
 
 			return res.redirect("/products/create");
-		} catch (error) {
+		} catch (err) {
 			throw new Error(err);
 		}
 	},
