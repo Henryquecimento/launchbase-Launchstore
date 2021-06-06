@@ -1,3 +1,4 @@
+const fs = require('fs');
 const Category = require("../models/Category");
 const Product = require("../models/Product");
 const File = require("../models/File");
@@ -126,6 +127,13 @@ module.exports = {
 	},
 	async delete(req, res) {
 		try {
+			const results = await Product.files(req.body.id);
+			const files = results.rows;
+
+			for (file of files) {
+				fs.unlinkSync(file.path);
+			}
+
 			await Product.delete(req.body.id);
 
 			return res.redirect("/products/create");
