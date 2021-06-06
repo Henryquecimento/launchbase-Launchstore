@@ -81,6 +81,19 @@ module.exports = {
 				}
 			}
 
+			// Add new photos to DB
+			if (req.files.length != 0) {
+				const newFilesPromise = req.files.map(file =>
+					File.create({
+						...file,
+						product_id: req.body.id
+					})
+				);
+
+				await Promise.all(newFilesPromise);
+			}
+
+
 			// Remove photos from DB
 			if (req.body.removed_files) {
 				// 1,2,
