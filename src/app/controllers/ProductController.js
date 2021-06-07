@@ -43,7 +43,9 @@ module.exports = {
 			throw new Error(err);
 		}
 	},
-
+	show(req, res) {
+		return res.render("products/show.njk");
+	},
 	async edit(req, res) {
 		try {
 			let results = await Product.find(req.params.id);
