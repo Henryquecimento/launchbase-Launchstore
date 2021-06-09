@@ -8,7 +8,16 @@
           <img src="http://placehold.it/500x500?text=NO PHOTO">
         {% else %}
           <img src="{{files[0].src}}" alt="{{files[0].name}}">
-        {% endif %}  
+        {% endif %} 
+
+        <div class="lightbox-target">
+          <img src="{{ files[0].src }}" alt="{{files[0].name}}">
+          
+          <a href="#" class="lightbox-close">
+            <i class="material-icons">close</i>
+          </a>
+          
+        </div> 
       </div>
 
        <div class="gallery-preview">
@@ -19,9 +28,11 @@
             {% if loop.index0 == 0 %}
             class='active'
             {% endif %}
+            onclick="ImageGallery.setImage(event)"
             >
         {% endfor %}
       </div>
+
     </div>
 
    
