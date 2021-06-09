@@ -44,7 +44,7 @@ module.exports = {
 		}
 	},
 	async show(req, res) {
-		const results = await Product.find(req.params.id);
+		let results = await Product.find(req.params.id);
 		const product = results.rows[0];
 
 		if (!product) return res.send('Product not found!');
@@ -59,7 +59,13 @@ module.exports = {
 		product.price = formatPrice(product.price);
 		product.old_price = formatPrice(product.old_price);
 
-		return res.render("products/show.njk", { product });
+		results = await Product.files(product.id);
+		const files = results.rows.map(file => ({
+			...file,
+			src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+		}));
+
+		return res.render("products/show.njk", { product, files });
 	},
 	async edit(req, res) {
 		try {
