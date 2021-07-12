@@ -19,14 +19,14 @@ module.exports = {
         params.category = category;
       }
 
-      results = await Product.search(params);
-
       async function getImage(productId) {
         let results = await Product.files(productId);
         const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`);
 
         return files[0];
       }
+
+      results = await Product.search(params);
 
       const productsPromise = results.rows.map(async product => {
         product.img = await getImage(product.id);
