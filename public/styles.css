@@ -616,4 +616,5 @@ form .item #photos-preview img {
 .form input[name="cpf_cnpj"],
 .form input[name="cep"] {
   max-width: 60%;
+  appearance: textfield;
 }
