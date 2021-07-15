@@ -614,7 +614,17 @@ form .item #photos-preview img {
 .form input[name="password"],
 .form input[name="passwordRepeat"],
 .form input[name="cpf_cnpj"],
-.form input[name="cep"] {
+.form input[name="cep"],
+.input .error {
   max-width: 60%;
   appearance: textfield;
+}
+
+/* VALIDATE ERRORS */
+.input .error {
+  background-color: #e74c3c;
+  padding: 4px;
+  border-radius: 4px;
+  color: white;
+  text-align: center;
 }
