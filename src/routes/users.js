@@ -3,6 +3,7 @@ const routes = express.Router();
 
 const SessionController = require('../app/controllers/SessionController');
 const UserController = require('../app/controllers/UserController');
+const UserValidations = require('../app/validators/user');
 
 /* // login/logout
 routes.get('/login', SessionController.loginForm);
@@ -17,7 +18,7 @@ routes.post('/password-reset', SessionController.reset);
  */
 // User Register UserController 
 routes.get('/register', UserController.registerFrom);
-//routes.post('/register', UserController.post);
+routes.post('/register', UserValidations.post, UserController.post);
 
 /* routes.get('/', UserController.show);
 routes.put('/', UserController.put);
