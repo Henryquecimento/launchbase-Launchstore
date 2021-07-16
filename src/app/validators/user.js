@@ -5,10 +5,11 @@ async function post(req, res, next) {
 
   for (key of keys) {
     if (req.body[key] == "" && key != 'removed_files') {
-      return res.send("Please, You must fill all the fields up!");
+      return res.render('user/register', {
+        error: 'Please, You must fill all the fields up!'
+      });
     }
   }
-
 
   let { email, cpf_cnpj, password, passwordRepeat } = req.body;
 
@@ -19,10 +20,15 @@ async function post(req, res, next) {
     or: { cpf_cnpj }
   });
 
-  if (user) return res.send('User exists');
+  if (user) return res.render('user/register', {
+    user: req.body,
+    error: 'User Already Exists!'
+  });
 
   if (password != passwordRepeat) {
-    return res.send('Password Mismatch');
+    return res.render('user/register', {
+      error: 'Password Mismatch!'
+    });
   }
 
   next();
