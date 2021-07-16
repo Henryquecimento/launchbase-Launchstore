@@ -6,7 +6,8 @@ async function post(req, res, next) {
   for (key of keys) {
     if (req.body[key] == "" && key != 'removed_files') {
       return res.render('user/register', {
-        error: 'Please, You must fill all the fields up!'
+        user: req.body,
+        error: 'Please, You must fill all the fields!'
       });
     }
   }
@@ -27,6 +28,7 @@ async function post(req, res, next) {
 
   if (password != passwordRepeat) {
     return res.render('user/register', {
+      user: req.body,
       error: 'Password Mismatch!'
     });
   }
