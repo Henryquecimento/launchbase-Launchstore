@@ -7,7 +7,7 @@ const ProductController = require('../app/controllers/ProductController');
 const SearchController = require("../app/controllers/SearchController");
 
 //Search
-routes.get("/products/search", SearchController.index);
+routes.get("/search", SearchController.index);
 
 routes.get("/create", ProductController.create);
 routes.get("/:id", ProductController.show);
