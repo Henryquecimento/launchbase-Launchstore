@@ -615,7 +615,6 @@ form .item #photos-preview img {
 .form input[name="cep"],
 .input .error {
   max-width: 60%;
-  appearance: textfield;
 }
 
 /* VALIDATE ERRORS */
