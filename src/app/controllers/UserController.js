@@ -1,7 +1,7 @@
 const User = require('../models/User');
 
 module.exports = {
-  registerFrom(req, res) {
+  registerForm(req, res) {
 
     return res.render('user/register');
   },
@@ -16,5 +16,3 @@ module.exports = {
     return res.redirect('/users')
   }
 }
-
-module.exports = new UserController();
