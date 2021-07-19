@@ -4,7 +4,7 @@ async function post(req, res, next) {
   const keys = Object.keys(req.body);
 
   for (key of keys) {
-    if (req.body[key] == "" && key != 'removed_files') {
+    if (req.body[key] == "" && key) {
       return res.render('user/register', {
         user: req.body,
         error: 'Please, You must fill all the fields!'
