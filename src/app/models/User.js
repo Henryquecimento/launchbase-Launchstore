@@ -7,18 +7,16 @@ module.exports = {
 
 
         Object.keys(filters).map(key => {
-            //SELECT * FROM users
 
             query = `
             ${query}
-            ${key}`  //WHERE -> key
+            ${key}`
 
-            //field -> email or cpf_cnpj
             Object.keys(filters[key]).map(field => {
                 query = `
                     ${query}
                     ${field} = '${filters[key][field]}'`
-            }); //filters[key] -> 'where:' or 'or:'  
+            });
         });
 
         const results = await db.query(query);
