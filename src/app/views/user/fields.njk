@@ -29,8 +29,12 @@
     <div class="input">
         <input 
             type="password" 
-            name="password" 
-            placeholder='Digite sua senha'
+            name="password"
+            {% if not user.id %}
+            placeholder='Crie sua senha'
+            {% else %}
+            placeholder='Digite sua senha para atualizar'
+            {% endif %}
         >
     </div>
 </div>
