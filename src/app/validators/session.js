@@ -45,7 +45,55 @@ async function forgot(req, res, next) {
   }
 }
 
+async function reset(req, res, next) {
+  const { email, password, passwordRepeat, token } = req.body;
+
+  try {
+    let user = await User.findOne({ where: { email } });
+
+    if (!user) return res.render('session/password-reset', {
+      user: req.body,
+      token,
+      error: 'E-mail não cadastrado!'
+    });
+
+    if (password != passwordRepeat) {
+      return res.render('session/password-reset', {
+        user: req.body,
+        token,
+        error: 'Password Mismatch!'
+      });
+    }
+
+    if (token != user.reset_token) {
+      return res.render('session/password-reset', {
+        user: req.body,
+        token,
+        error: 'Invalid Token!  Please, ask a new password recovery!'
+      });
+    }
+
+    let now = new Date();
+    now = now.setHours(now.getHours());
+
+    if (now > user.reset_token_expires) {
+      return res.render('session/password-reset', {
+        user: req.body,
+        token,
+        error: 'Token expired! Please, ask a new password recovery!'
+      });
+    }
+
+    req.user = user;
+
+    next();
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 module.exports = {
   login,
-  forgot
+  forgot,
+  reset
 }
