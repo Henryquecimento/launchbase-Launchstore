@@ -88,4 +88,4 @@ CREATE INDEX "IDX_session_expire" ON "session" ("expire");
 
 -- Token password recovery
 ALTER TABLE "users" ADD COLUMN reset_token text;
-ALTER TABLE "users" ADD COLUMN reset_token_expire text;
+ALTER TABLE "users" ADD COLUMN reset_token_expires text;
