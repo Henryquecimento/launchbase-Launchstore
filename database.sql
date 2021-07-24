@@ -89,3 +89,18 @@ CREATE INDEX "IDX_session_expire" ON "session" ("expire");
 -- Token password recovery
 ALTER TABLE "users" ADD COLUMN reset_token text;
 ALTER TABLE "users" ADD COLUMN reset_token_expires text;
+
+-- DELETE ON CASCADE FOR PRODUCTS AND USERS
+ALTER TABLE "products"
+DROP CONSTRAINT products_category_id_fkey,
+ADD CONSTRAINT  products_category_id_fkey
+FOREIGN KEY ("user_id")
+REFERENCES "users" ("id")
+ON DELETE CASCADE;
+
+ALTER TABLE "files"
+DROP CONSTRAINT files_product_id_fkey,
+ADD CONSTRAINT  files_product_id_fkey
+FOREIGN KEY ("product_id")
+REFERENCES "products" ("id")
+ON DELETE CASCADE;
