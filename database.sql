@@ -92,8 +92,8 @@ ALTER TABLE "users" ADD COLUMN reset_token_expires text;
 
 -- DELETE ON CASCADE FOR PRODUCTS AND USERS
 ALTER TABLE "products"
-DROP CONSTRAINT products_category_id_fkey,
-ADD CONSTRAINT  products_category_id_fkey
+DROP CONSTRAINT products_user_id_fkey,
+ADD CONSTRAINT  products_user_id_fkey
 FOREIGN KEY ("user_id")
 REFERENCES "users" ("id")
 ON DELETE CASCADE;
