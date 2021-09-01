@@ -48,11 +48,34 @@ const Cart = {
     return this;
 
   },
-  removeOne(productId) { },
+  removeOne(productId) {
+
+    const inCart = this.items.find(item => item.product.id == productId);
+
+    if (!inCart) return this;
+
+    // update product
+    inCart.quantity--;
+    inCart.price = inCart.product.price * inCart.quantity;
+    inCart.formatedPrice = formatPrice(inCart.price);
+
+    // update cart
+    this.total.quantity--;
+    this.total.price -= inCart.product.price;
+    this.total.formatedPrice = formatPrice(this.total.price);
+
+    if (inCart.quantity < 1) {
+      this.items = this.items.filter(item => item.product.id != inCart.product.id);
+
+      return this;
+    }
+
+    return this;
+  },
   delete(productId) { },
 }
 
-/* const product = {
+const product = {
   id: 1,
   price: 199,
   quantity: 2
@@ -76,9 +99,18 @@ console.log('third')
 oldCart = Cart.init(oldCart).addOne(product2)
 console.log(oldCart)
 
-console.log('fourth - last')
-oldCart = Cart.init(oldCart).addOne(product)
+console.log('remove')
+oldCart = Cart.init(oldCart).removeOne(product.id)
 console.log(oldCart)
- */
+
+console.log('remove')
+oldCart = Cart.init(oldCart).removeOne(product.id)
+console.log(oldCart)
+
+console.log('remove')
+oldCart = Cart.init(oldCart).removeOne(product2.id)
+console.log(oldCart)
+
+
 
 module.exports = Cart;
