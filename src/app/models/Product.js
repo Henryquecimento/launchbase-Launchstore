@@ -1,13 +1,10 @@
 const db = require('../../config/db');
+const Base = require('./Base');
+
+Base.init({ table: 'products' });
 
 module.exports = {
-    all() {
-        return db.query(`
-            SELECT *
-            FROM products
-            ORDER BY updated_at DESC
-        `)
-    },
+    ...Base,
     create(data) {
         const query = `
             INSERT INTO products (
