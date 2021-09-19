@@ -40,14 +40,14 @@ const Base = {
       throw new Error('FindOne method issues');
     }
   },
-  async create(filters) {
+  async create(fields) {
     let keys = [];
     let values = [];
 
-    Object.keys(filters).map(key => {
+    Object.keys(fields).map(key => {
 
       keys.push(key)
-      values.push(filters[key]);
+      values.push(fields[key]);
 
     });
 
