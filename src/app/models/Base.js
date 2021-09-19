@@ -61,7 +61,28 @@ const Base = {
     const result = await db.query(query);
 
     return result.rows[0].id;
-  }
+  },
+  update(id, fields) {
+    let update = [];
+
+    Object.keys(fields).map(key => {
+
+      const line = `${key} = '${fields[key]}'`
+
+      update.push(line);
+    });
+
+    const query = `
+    UPDATE ${this.table} SET
+    ${update.join(',')}
+    WHERE id = ${id}
+    `
+
+    return db.query(query);
+  },
+  delete(id) {
+    return db.query(`DELETE FROM ${this.table} WHERE id = ${id}`);
+  },
 }
 
 module.exports = Base;
