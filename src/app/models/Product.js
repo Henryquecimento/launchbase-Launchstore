@@ -8,7 +8,7 @@ module.exports = {
     files(id) {
         return db.query(`SELECT * FROM files WHERE product_id = ${id}`);
     },
-    search(params) {
+    async search(params) {
         const { filter, category } = params;
 
         let query = '',
@@ -36,6 +36,7 @@ module.exports = {
             ${filterQuery}
         `;
 
-        return db.query(query);
+        const results = await db.query(query);
+        return results.rows;
     }
 }
