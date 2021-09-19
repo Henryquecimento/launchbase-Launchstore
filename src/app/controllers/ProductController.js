@@ -142,7 +142,14 @@ module.exports = {
 				//['1','2']
 				removedFiles.splice(lastIndex, 1);
 
-				const removedFilesPromise = removedFiles.map(id => File.delete(id));
+				const removedFilesPromise = removedFiles.map(async id => {
+					const result = await File.find(id)
+					const file = result.rows[0];
+
+					fs.unlinkSync(file.path);
+
+					return File.delete(id)
+				});
 
 				await Promise.all(removedFilesPromise);
 			}
