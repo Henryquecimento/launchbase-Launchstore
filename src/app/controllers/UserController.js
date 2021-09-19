@@ -1,4 +1,9 @@
+const { unlinkSync } = require('fs')
+const { hash } = require('bcryptjs');
+
 const User = require('../models/User');
+const Product = require('../models/Product');
+
 const { formatCpfCnpj, formatCep } = require('../../lib/utils');
 
 module.exports = {
@@ -17,7 +22,21 @@ module.exports = {
   },
   async post(req, res) {
 
-    const userId = await User.create(req.body);
+    let { name, email, password, cpf_cnpj, cep, address } = req.body;
+
+    const password = await hash(password, 8);
+
+    cpf_cnpj = cpf_cnpj.replace(/\D/g, ""),
+      cep = cep.replace(/\D/g, "")
+
+    const userId = await User.create({
+      name,
+      email,
+      password,
+      cpf_cnpj,
+      cep,
+      address
+    });
 
     req.session.userId = userId;
 
@@ -59,9 +78,26 @@ module.exports = {
   async delete(req, res) {
     try {
 
-      await User.delete(req.body.id);
+      let products = await Product.findAll({ where: { user_id: req.body.id } });
 
+      const allFilesPromise = products.map(product =>
+        Product.files(product.id));
+
+      let promiseResults = await Promise.all(allFilesPromise);
+
+      await User.delete(req.body.id);
       req.session.destroy();
+
+      promiseResults.map(results =>
+        results.rows.map(file => {
+          try {
+            unlinkSync(file.path);
+
+          } catch (err) {
+            console.error(err);
+          }
+        })
+      );
 
       return res.render("session/login", {
         success: "Conta deletada com sucesso!"
