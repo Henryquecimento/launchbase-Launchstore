@@ -3,19 +3,21 @@ const db = require('../../config/db');
 function find(filters, table) {
   let query = `SELECT * FROM ${table}`;
 
-  Object.keys(filters).map(key => {
+  if (filters) {
+    Object.keys(filters).map(key => {
 
-    query = `
-    ${query}
-    ${key}`;
-
-    Object.keys(filters[key]).map(field => {
       query = `
       ${query}
-      ${field} = '${filters[key][field]}'`
+      ${key}`;
+  
+      Object.keys(filters[key]).map(field => {
+        query = `
+        ${query}
+        ${field} = '${filters[key][field]}'`
+      });
     });
-  });
-
+  }
+  
   return db.query(query);
 }
 
@@ -26,13 +28,6 @@ const Base = {
     this.table = table;
 
     return this;
-  },
-  all() {
-    return db.query(`
-        SELECT *
-        FROM ${this.table}
-        ORDER BY updated_at DESC
-    `);
   },
   async find(id) {
     const results = await find({ where: { id } }, this.table);
