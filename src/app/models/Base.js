@@ -9,7 +9,7 @@ function find(filters, table) {
       query = `
       ${query}
       ${key}`;
-  
+
       Object.keys(filters[key]).map(field => {
         query = `
         ${query}
@@ -17,7 +17,7 @@ function find(filters, table) {
       });
     });
   }
-  
+
   return db.query(query);
 }
 
@@ -53,7 +53,7 @@ const Base = {
     Object.keys(fields).map(key => {
 
       keys.push(key)
-      values.push(fields[key]);
+      values.push(`'${fields[key]}'`);
 
     });
 
