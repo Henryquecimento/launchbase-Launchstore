@@ -5,8 +5,10 @@ Base.init({ table: 'products' });
 
 module.exports = {
     ...Base,
-    files(id) {
-        return db.query(`SELECT * FROM files WHERE product_id = ${id}`);
+    async files(id) {
+        const results = await db.query(`SELECT * FROM files WHERE product_id = ${id}`);
+
+        return results.rows;
     },
     async search(params) {
         const { filter, category } = params;
