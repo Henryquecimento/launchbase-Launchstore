@@ -8,9 +8,13 @@ module.exports = {
     return res.render('session/login');
   },
   login(req, res) {
-    req.session.userId = req.user.id;
+    try {
+      req.session.userId = req.user.id;
 
-    return res.redirect('/users');
+      return res.redirect('/users');
+    } catch (err) {
+      console.error(err);
+    }
   },
   logout(req, res) {
     req.session.destroy();

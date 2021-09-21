@@ -2,28 +2,32 @@ const User = require('../models/User');
 const { compare } = require('bcryptjs');
 
 async function login(req, res, next) {
+  try {
+    const { email, password } = req.body;
 
-  const { email, password } = req.body;
+    const user = await User.findOne({
+      where: { email }
+    });
 
-  const user = await User.findOne({
-    where: { email }
-  });
+    if (!user) return res.render('session/login', {
+      user: req.body,
+      error: 'Usuário não encontrado!'
+    });
 
-  if (!user) res.render('session/login', {
-    user: req.body,
-    error: 'Usuário não encontrado!'
-  });
+    const passed = await compare(password, user.password);
 
-  const passed = await compare(password, user.password);
+    if (!passed) return res.render('session/login', {
+      user: req.body,
+      error: "Senha incorreta! Favor, tente novamente."
+    });
 
-  if (!passed) return res.render('session/login', {
-    user: req.body,
-    error: "Senha incorreta! Favor, tente novamente."
-  });
+    req.user = user;
 
-  req.user = user;
+    next();
 
-  next();
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 async function forgot(req, res, next) {
