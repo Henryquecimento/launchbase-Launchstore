@@ -24,7 +24,7 @@ module.exports = {
 
     let { name, email, password, cpf_cnpj, cep, address } = req.body;
 
-    const password = await hash(password, 8);
+    password = await hash(password, 8);
 
     cpf_cnpj = cpf_cnpj.replace(/\D/g, ""),
       cep = cep.replace(/\D/g, "")
@@ -88,8 +88,8 @@ module.exports = {
       await User.delete(req.body.id);
       req.session.destroy();
 
-      promiseResults.map(results =>
-        results.rows.map(file => {
+      promiseResults.map(files =>
+        files.map(file => {
           try {
             unlinkSync(file.path);
 
