@@ -6,6 +6,7 @@ const File = require("../models/File");
 
 const fs = require('fs');
 const { formatPrice, date } = require("../../lib/utils");
+const { LoadProduct } = require('../services/LoadProductServices');
 
 module.exports = {
 	async create(req, res) {
@@ -68,27 +69,11 @@ module.exports = {
 	},
 	async show(req, res) {
 		try {
-			let product = await Product.find(req.params.id);
+			let product = await LoadProduct.load('product', { where: { id: req.params.id } })
 
 			if (!product) return res.send('Product not found!');
 
-			const { day, month, hour, minutes } = date(product.updated_at);
-
-			product.published = {
-				day: `${day}/${month}`,
-				hour: `${hour}h${minutes}min`
-			}
-
-			product.price = formatPrice(product.price);
-			product.old_price = formatPrice(product.old_price);
-
-			let files = await Product.files(product.id);
-			files = files.map(file => ({
-				...file,
-				src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-			}));
-
-			return res.render("products/show", { product, files });
+			return res.render("products/show", { product });
 		} catch (err) {
 			console.error(err);
 			throw new Error(err);
@@ -96,23 +81,13 @@ module.exports = {
 	},
 	async edit(req, res) {
 		try {
-			let product = await Product.find(req.params.id);
+			let product = await LoadProduct.load('product', { where: { id: req.params.id } })
 
 			if (!product) return res.send("Product not found!");
 
-			product.old_price = formatPrice(product.old_price);
-			product.price = formatPrice(product.price);
-
 			const categories = await Category.findAll();
 
-			let files = await Product.files(req.params.id);
-
-			files = files.map(file => ({
-				...file,
-				src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-			}))
-
-			return res.render("products/edit", { product, categories, files });
+			return res.render("products/edit", { product, categories });
 		} catch (err) {
 			console.error(err);
 			throw new Error(err);
