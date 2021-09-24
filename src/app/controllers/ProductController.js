@@ -82,18 +82,6 @@ module.exports = {
 	},
 	async put(req, res) {
 		try {
-			// Add new photos to DB
-			if (req.files.length != 0) {
-				const newFilesPromise = req.files.map(file =>
-					File.create({
-						name: file.filename,
-						path: file.path,
-						product_id: req.body.id
-					})
-				);
-
-				await Promise.all(newFilesPromise);
-			}
 
 			// Remove photos from DB
 			if (req.body.removed_files) {
@@ -114,6 +102,24 @@ module.exports = {
 				});
 
 				await Promise.all(removedFilesPromise);
+			}
+
+
+			// Add new photos to DB
+			if (req.files.length != 0) {
+				const oldFiles = await Product.files(req.body.id);
+
+				if (oldFiles.length + req.files.length <= 6) {
+					const newFilesPromise = req.files.map(file =>
+						File.create({
+							name: file.filename,
+							path: file.path,
+							product_id: req.body.id
+						})
+					);
+
+					await Promise.all(newFilesPromise);
+				}
 			}
 
 			req.body.price = req.body.price.replace(/\D/g, ""); // It'll clean the formated number

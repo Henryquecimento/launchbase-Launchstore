@@ -48,7 +48,11 @@ const PhotosUpload = {
     const { files: fileList } = event.target;
     PhotosUpload.input = event.target;
 
-    if (PhotosUpload.hasLimit(event)) return
+    if (PhotosUpload.hasLimit(event)) {
+      PhotosUpload.updateFilesInput();
+
+      return;
+    }
 
     Array.from(fileList).forEach(file => {
 
@@ -68,7 +72,7 @@ const PhotosUpload = {
       reader.readAsDataURL(file);
     })
 
-    PhotosUpload.input.files = PhotosUpload.getAllFiles();
+    PhotosUpload.updateFilesInput();
 
   },
   hasLimit(event) {
@@ -129,11 +133,13 @@ const PhotosUpload = {
   },
   removePhoto(event) {
     const photoDiv = event.target.parentNode; //Event.target -> i // parentNode -> div class='photo'
-    const photosArray = Array.from(PhotosUpload.preview.children);
-    const index = photosArray.indexOf(photoDiv);
 
+    const newPhotos = Array.from(PhotosUpload.preview.children).filter(file => {
+      if (file.classList.contains('photo') && !file.getAttribute('id')) return true; //filter only the new photos added
+    });
+    const index = newPhotos.indexOf(photoDiv);
     PhotosUpload.files.splice(index, 1); //removing ONE element
-    PhotosUpload.input.files = PhotosUpload.getAllFiles(); // Updating te FileList
+    PhotosUpload.updateFilesInput(); // Updating te FileList
 
     photoDiv.remove();
   },
@@ -149,6 +155,9 @@ const PhotosUpload = {
     }
 
     photoDiv.remove();
+  },
+  updateFilesInput() {
+    PhotosUpload.input.files = PhotosUpload.getAllFiles();
   }
 }
 
