@@ -22,17 +22,6 @@ module.exports = {
 	},
 	async post(req, res) {
 		try {
-			const keys = Object.keys(req.body);
-
-			for (key of keys) {
-				if (req.body[key] == "") {
-					return res.send("Please, You must fill all the fields up!");
-				}
-			}
-
-			if (req.files.length == 0) {
-				return res.send('Please, send at least one image');
-			}
 
 			let { category_id, user_id, name, description, old_price, price, quantity, status } = req.body;
 
@@ -76,7 +65,6 @@ module.exports = {
 			return res.render("products/show", { product });
 		} catch (err) {
 			console.error(err);
-			throw new Error(err);
 		}
 	},
 	async edit(req, res) {
@@ -90,19 +78,10 @@ module.exports = {
 			return res.render("products/edit", { product, categories });
 		} catch (err) {
 			console.error(err);
-			throw new Error(err);
 		}
 	},
 	async put(req, res) {
 		try {
-			const keys = Object.keys(req.body);
-
-			for (key of keys) {
-				if (req.body[key] == "" && key != 'removed_files') {
-					return res.send("Please, You must fill all the fields up!");
-				}
-			}
-
 			// Add new photos to DB
 			if (req.files.length != 0) {
 				const newFilesPromise = req.files.map(file =>
@@ -158,7 +137,6 @@ module.exports = {
 			return res.redirect(`/products/${req.body.id}`);
 		} catch (err) {
 			console.error(err);
-			throw new Error(err);
 		}
 	},
 	async delete(req, res) {
