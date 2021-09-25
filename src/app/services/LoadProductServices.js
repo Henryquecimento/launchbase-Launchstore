@@ -5,8 +5,10 @@ const Product = require("../models/Product");
 
 async function getImages(productId) {
   let files = await Product.files(productId);
+
   files = files.map(file => ({
     ...file,
+    path: file.path.replace(/\\/g, '/'),
     src: `${file.path.replace("public", "")}`
   }));
 
@@ -17,7 +19,12 @@ async function format(product) {
 
   const files = await getImages(product.id);
 
-  product.img = files[0].src;
+  if (files[0] != undefined) {
+    product.img = files[0].src;
+  } else {
+    product.img = null;
+  }
+
   product.files = files;
   product.formattedOldPrice = formatPrice(product.old_price);
   product.formattedPrice = formatPrice(product.price);

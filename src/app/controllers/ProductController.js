@@ -5,7 +5,6 @@ const Product = require("../models/Product");
 const File = require("../models/File");
 
 const fs = require('fs');
-const { formatPrice, date } = require("../../lib/utils");
 const { LoadProduct } = require('../services/LoadProductServices');
 
 module.exports = {
@@ -43,7 +42,7 @@ module.exports = {
 			const filesPromise = req.files.map(file =>
 				File.create({
 					name: file.filename,
-					path: file.path,
+					path: file.path.replace(/\\/g, '/'),
 					product_id
 				})
 			);
@@ -104,7 +103,6 @@ module.exports = {
 				await Promise.all(removedFilesPromise);
 			}
 
-
 			// Add new photos to DB
 			if (req.files.length != 0) {
 				const oldFiles = await Product.files(req.body.id);
@@ -113,7 +111,7 @@ module.exports = {
 					const newFilesPromise = req.files.map(file =>
 						File.create({
 							name: file.filename,
-							path: file.path,
+							path: file.path.replace(/\\/g, '/'),
 							product_id: req.body.id
 						})
 					);
