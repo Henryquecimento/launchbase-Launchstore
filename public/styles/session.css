@@ -8,11 +8,11 @@ section.password.container .fields {
   margin-bottom: 32px;
 }
 
-.form input[name="email"],
+/* .form input[name="email"],
 .form input[name="password"] {
   max-width: 80%;
 }
-
+ */
 section.login.container .footer ul {
   display: flex;
   justify-content: space-evenly;

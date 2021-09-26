@@ -1,33 +1,31 @@
 {% extends "layout.njk" %}
+{% import 'parts/card.njk' as cards%}
 
 {% block content %}
+  
+    {% call cards.render('Acessar sua conta', 'login container form')%}
 
-    <section class="login container form">
         <form method="POST" action="/users/login">
 
-            <div class="header">
-                <h3>Acessar sua conta</h3>
-            </div>
+          <div class="fields">
+              {% include "session/fields.njk" %}
+          </div>
 
-            <div class="fields">
-                {% include "session/fields.njk" %}
-            </div>
-
-            <button class='button' type="submit">Entrar</button>
-        
-            <div class="footer">
-              <ul>
-                <li>
-                  <a href="/users/register">Registre-se</a>
-                </li>
-                <li>
-                  <a href="/users/forgot-password">Esqueci a senha</a>
-                </li>
-              </ul>
-            </div>
-        
+          <button class='button' type="submit">Entrar</button>
+      
+          <div class="footer">
+            <ul>
+              <li>
+                <a href="/users/register">Registre-se</a>
+              </li>
+              <li>
+                <a href="/users/forgot-password">Esqueci a senha</a>
+              </li>
+            </ul>
+          </div>
+      
         </form>
 
-    </section>
+    {% endcall %}
 
 {% endblock content %}
