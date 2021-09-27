@@ -164,3 +164,17 @@
   background-color: #1133bb;
   transition: background-color 300ms;
 }
+
+.product-single .unavailable {
+  background-color: rgb(220, 220, 220);
+  color: #777;
+
+  font-size: 16px;
+  line-height: 18px;
+  text-transform: uppercase;
+  text-align: center;
+
+  margin: 16px 0;
+  padding: 12px 16px;
+  border-radius: 8px;
+}
