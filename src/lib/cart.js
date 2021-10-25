@@ -65,7 +65,7 @@ const Cart = {
     this.total.formattedPrice = formatPrice(this.total.price);
 
     if (inCart.quantity < 1) {
-      this.items = this.items.filter(item => item.product.id != item.product.id);
+      this.items = this.items.filter(item => item.product.id != inCart.product.id);
 
       return this;
     }
