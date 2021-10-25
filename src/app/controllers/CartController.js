@@ -5,20 +5,45 @@ const { LoadProduct } = require('../services/LoadProductServices');
 module.exports = {
   async index(req, res) {
     try {
-      const product = await LoadProduct.load('product', {
-        where: {
-          id: 1
-        }
-      })
 
       let { cart } = req.session;
 
-
-      cart = Cart.init(cart).addOne(product);
+      cart = Cart.init(cart);
 
       return res.render('cart/index.njk', { cart });
     } catch (err) {
       console.error(err);
     }
+  },
+  async addOne(req, res) {
+    const { id } = req.params;
+
+    let { cart } = req.session;
+
+    const product = await LoadProduct.load('product', {
+      where: {
+        id
+      }
+    });
+
+    cart = Cart.init(cart).addOne(product);
+
+    req.session.cart = cart;
+
+    return res.redirect('/cart');
+
+  },
+  removeOne(req, res) {
+    const { id } = req.params;
+
+    let { cart } = req.session;
+
+    if (!cart) return res.redirect('/cart');
+
+    cart = Cart.init(cart).removeOne(id);
+
+    req.session.cart = cart;
+
+    return res.redirect('/cart');
   }
 }
