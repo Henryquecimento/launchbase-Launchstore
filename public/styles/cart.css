@@ -129,3 +129,54 @@
 .cart .button.order:hover {
   background: rgb(0, 220, 64);
 }
+
+/* Empty Cart */
+.cart-empty .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cart-empty h3 {
+  font-size: 16px;
+  line-height: 18px;
+  letter-spacing: 2px;
+}
+.cart-empty a {
+  width: 300px;
+  margin: 16px auto;
+}
+
+/* MENU */
+header div.container {
+  grid-template-columns: 220px auto 315px;
+  gap: 8px;
+}
+
+li.cart a {
+  position: relative;
+}
+
+li.cart a span {
+  background-color: red;
+  border-radius: 50%;
+
+  width: 20px;
+  height: 20px;
+
+  font-size: 12px;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  top: 12px;
+  right: 0;
+}
+
+li.cart a:hover span {
+  background-color: white;
+  color: #101010;
+}
