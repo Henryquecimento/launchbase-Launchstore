@@ -6,6 +6,7 @@ const { LoadProduct } = require('../services/LoadProductServices');
 
 
 const mailer = require('../../lib/mailer');
+const { date, formatPrice } = require('../../lib/utils');
 
 const email = (seller, product, buyer) => `
 <h3>Olá ${seller.name}</h3>
@@ -26,6 +27,50 @@ const email = (seller, product, buyer) => `
 `;
 
 module.exports = {
+  async index(req, res) {
+    let orders = await Order.findAll({ where: { buyer_id: req.session.userId } });
+
+    const getOrdersPromise = orders.map(async order => {
+
+      // Detail Products
+      order.product = await LoadProduct.load('products', { where: { id: order.product_id } });
+
+      //Detail Buyer
+      order.buyer = await User.findOne({
+        where: { id: order.buyer_id }
+      });
+
+      //Detail Seller
+      order.seller = await User.findOne({
+        where: { id: order.seller_id }
+      });
+
+      //Price Formatation
+      order.formattedPrice = formatPrice(order.price);
+      order.formattedTotal = formatPrice(order.total);
+
+      //Status Formatation
+      const statuses = {
+        open: 'Aberto',
+        sold: 'Vendido',
+        canceled: 'Cancelado'
+      }
+
+      order.formattedStatus = statuses[order.status]; //statuses.open
+
+      // Updated_at in Formatation
+      const updatedAt = date(order.updated_at);
+      order.formattedUpdatedAt = `${order.formattedStatus} em ${updatedAt.day}/${updatedAt.month}/${updatedAt.year} às ${updatedAt.hour}h${updatedAt.minutes}min`;
+
+      return order;
+
+    });
+
+    orders = await Promise.all(getOrdersPromise);
+
+    return res.render('order/index', { orders });
+
+  },
   async post(req, res) {
     try {
 
