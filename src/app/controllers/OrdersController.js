@@ -1,5 +1,9 @@
+const Cart = require('../../lib/cart');
+
 const User = require('../models/User');
+const Order = require('../models/Order');
 const { LoadProduct } = require('../services/LoadProductServices');
+
 
 const mailer = require('../../lib/mailer');
 
@@ -25,30 +29,62 @@ module.exports = {
   async post(req, res) {
     try {
 
-      //find product data
-      const product = await LoadProduct.load('product', {
-        where: {
-          id: req.body.id
-        }
-      });
+      let cart = Cart.init(req.session.cart);
+      const buyer_id = req.session.userId;
 
-      //find seller data
-      const seller = await User.findOne({
-        where: { id: product.user_id }
-      });
+      const filteredItems = cart.items.filter(item =>
+        item.product.user_id != buyer_id
+      );
 
-      //find buyer data
-      const buyer = await User.findOne({
-        where: { id: req.session.userId }
-      });
+      const ordersPromise = filteredItems.map(async item => {
+        let { product, price: total, quantity } = item;
+        const { price, id: product_id, user_id: seller_id } = product;
+        const status = 'open';
 
-      //send email to seller about the order
-      await mailer.sendMail({
-        to: seller.email,
-        from: 'no-reply@launchstore.com.br',
-        subject:'Você Tem Um Novo Pedido',
-        html: email(seller, product, buyer)
-      });
+        const order = await Order.create({
+          seller_id,
+          buyer_id,
+          product_id,
+          price,
+          quantity,
+          total,
+          status
+        });
+
+        //find product data
+        product = await LoadProduct.load('product', {
+          where: {
+            id: product_id
+          }
+        });
+
+        //find seller data
+        const seller = await User.findOne({
+          where: { id: seller_id }
+        });
+
+        //find buyer data
+        const buyer = await User.findOne({
+          where: { id: buyer_id }
+        });
+
+        //send email to seller about the order
+        await mailer.sendMail({
+          to: seller.email,
+          from: 'no-reply@launchstore.com.br',
+          subject: 'Você Tem Um Novo Pedido',
+          html: email(seller, product, buyer)
+        });
+
+
+        return order;
+      })
+
+      await Promise.all(ordersPromise);
+
+      /* Clean Cart */
+      delete req.session.cart;
+      Cart.init();
 
       //show a success message to user
       return res.render("orders/success");
