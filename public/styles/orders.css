@@ -1,3 +1,11 @@
+.container {
+  --status-open: rgb(24, 191, 141);
+
+  --status-sold: rgb(31, 197, 9);
+
+  --status-canceled: rgb(242, 30, 30);
+}
+
 .order-success,
 .order-error {
   color: #101010;
@@ -102,13 +110,116 @@ a.action:hover {
 }
 
 .orders .status.open {
-  background-color: rgb(24, 191, 141);
+  background-color: var(--status-open);
 }
 
 .orders .status.sold {
-  background-color: rgb(31, 197, 9);
+  background-color: var(--status-sold);
 }
 
 .orders .status.canceled {
-  background-color: rgb(242, 30, 30);
+  background-color: var(--status-canceled);
+}
+
+/* ORDER DETAILS */
+.order-detail {
+  max-width: 700px;
+}
+
+.order-detail .info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 16px;
+
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.order-detail .info h4 {
+  color: #777;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+
+  margin-bottom: 8px;
+}
+
+.order-detail .status {
+  text-align: right;
+}
+
+.order-detail .status.open h2 {
+  color: var(--status-open);
+}
+
+.order-detail .status.sold h2 {
+  color: var(--status-sold);
+}
+
+.order-detail .status.canceled h2 {
+  color: var(--status-canceled);
+}
+
+.order-detail .status p {
+  color: #777;
+  font-size: 12px;
+}
+
+.order-detail .product {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+
+  padding: 16px 0;
+  margin-bottom: 16px;
+}
+
+.order-detail img {
+  width: 100px;
+  height: 100px;
+
+  border-radius: 8px;
+
+  box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.4);
+
+  object-fit: contain;
+
+  margin-right: 16px;
+}
+
+.order-detail .price {
+  color: #555;
+  font-weight: bold;
+  text-align: right;
+
+  flex: 1;
+}
+
+.order-detail .quantity {
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.order-detail .total {
+  color: #333;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.order-detail .total span {
+  font-size: 12px;
+  font-weight: 500;
+
+  margin-right: 8px;
 }
