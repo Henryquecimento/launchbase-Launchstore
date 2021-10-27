@@ -8,5 +8,6 @@ const { onlyUsers } = require("../app/middlewares/session");
 routes.post('/', onlyUsers, OrdersController.post);
 routes.get('/', onlyUsers, OrdersController.index);
 routes.get('/sales', onlyUsers, OrdersController.sales);
+routes.get('/:id', onlyUsers, OrdersController.show);
 
 module.exports = routes;
