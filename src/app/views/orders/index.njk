@@ -13,7 +13,7 @@
 
     {% else %}
     
-      {% call cards.render('Carrinho', 'cart container form')%}
+      {% call cards.render('Meus Pedidos', 'orders container form')%}
 
 
         <div class="items">
@@ -35,7 +35,7 @@
 
               <div class="total">{{order.formattedTotal}}</div>
 
-              <div class="status">{{order.formattedStatus}}</div>
+              <div class="status {{order.status}}">{{order.formattedStatus}}</div>
             </div>
 
           {% endfor %}
