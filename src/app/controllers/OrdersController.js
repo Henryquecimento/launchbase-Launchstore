@@ -68,7 +68,8 @@ module.exports = {
 
     orders = await Promise.all(getOrdersPromise);
 
-    return res.render('order/index', { orders });
+
+    return res.render('orders/index', { orders });
 
   },
   async post(req, res) {
