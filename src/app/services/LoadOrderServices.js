@@ -9,7 +9,7 @@ const { LoadProduct } = require('./LoadProductServices');
 async function format(order) {
 
   // Detail Products
-  order.product = await LoadProduct.load('product', { where: { id: order.product_id } });
+  order.product = await LoadProduct.load('productWithDeleted', { where: { id: order.product_id } });
 
   //Detail Buyer
   order.buyer = await User.findOne({
