@@ -119,25 +119,30 @@ header div.container a {
 
 /* PRIMARY MENU */
 
-nav.primary ul {
+nav.primary > ul {
   display: flex;
   justify-content: space-between;
 }
 
-nav.primary ul li a {
+nav.primary > ul > li > a {
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   color: white;
+  height: 64px;
 }
 
-nav.primary ul li a:hover {
+nav.primary ul > li > a:hover {
   color: var(--primary-color);
   transition: color 400ms;
 }
 
-nav.primary ul li a i {
+nav.primary > ul > li > a > i {
   margin-right: 8px;
+}
+
+nav.primary > ul > li button:hover {
+  color: white;
+  background-color: #d02216;
 }
 
 /* FORM */
