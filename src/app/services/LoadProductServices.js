@@ -67,6 +67,16 @@ const LoadProduct = {
       console.error(err);
     }
   },
+  async productWithDeleted() {
+    try {
+      const product = await Product.findOneWithDeleted(this.filters);
+
+      return format(product);
+
+    } catch (err) {
+      console.error(err);
+    }
+  },
   format,
 }
 
