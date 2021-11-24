@@ -2,7 +2,7 @@
 <h1 align="center"><strong>LAUNCHSTORE</br><span style="font-size: 24px; color: #fd951f">Buy and Sell</span></strong></h1>
 
 
-**<h2 style="font-size: 18px;color: #fd951f">WHAT IS THIS PROJECT?</h2>**
+**<WHAT IS THIS PROJECT?**
 <h3 style="font-size: 14px">O QUE É ESTE PROJETO?</h3>
 :us:
 <p align="justify">
@@ -15,10 +15,9 @@ Launchstore é uma aplicação MVC de uma e-commerce. Neste projeto há duas ses
 
 <p>&nbsp;</p>
 
-**:computer:<h2 style="font-size: 18px;color: #fd951f">TECHNOLOGIES</h2>**
+**:computer: TECHNOLOGIESs**
 
 <h3 style="font-size: 14px">TECNOLOGIAS</h3>
-</br>
 
 ### Frontend:
 
@@ -41,10 +40,9 @@ Launchstore é uma aplicação MVC de uma e-commerce. Neste projeto há duas ses
 
   <p>&nbsp;</p>
 
-**:rocket:<h2 style="font-size: 18px;color: #fd951f">HOW TO ACCESS</h2>**
+**:rocket: HOW TO ACCESS**
 
 <h3 style="font-size: 14px">COMO ACESSAR</h3>
-</br>
 
 > COPYING FROM GITHUB / COPIANDO DO GITHUB:
 
@@ -73,6 +71,7 @@ Disclaimer: </br>
 </br>
 My Postgres version is 13, pay attention to yours.
 </br>
+
 Minha versão do Postgres é a 13, atenção na versão do seu.
 
 #### WINDOWS OS
