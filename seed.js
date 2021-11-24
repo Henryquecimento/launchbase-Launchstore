@@ -14,7 +14,7 @@ let totalProducts = 10;
 async function createUsers() {
   let users = [];
 
-  const password = await hash('2222', 8);
+  const password = await hash('101010', 8);
 
   while (users.length < totalUsers) {
 
