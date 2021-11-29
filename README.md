@@ -40,7 +40,20 @@ TECNOLOGIAS
 - [BcryptJs][bcryptjs]
 - [Nodemailer][nodemailer]
 
-  <p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<h3><strong>PUBLIC SESSION / SESSÃO PÚBLICA</strong></h3>
+<h1 align="center">
+  <img src=".github/PublicSession.gif" >
+</h1>
+
+<h><strong>PRIVATE SESSION / SESSÃO PRIVADA</strong></h3>
+
+<h1 align="center">
+  <img src=".github/PrivateSession.gif" >
+</h1>
+
+ <p>&nbsp;</p>
 
 **:rocket: HOW TO ACCESS**
 
