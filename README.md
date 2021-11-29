@@ -12,7 +12,7 @@ Launchstore is an MVC application of an e-commerce. In this project there are tw
 </p>
 
 <p align="justify">
-Launchstore é uma aplicação MVC de uma e-commerce. Neste projeto há duas sessões, uma pública e uma privada. A primeira é responsável por exibir os produtos e criar uma conta, já a segunda é responsável por adicionar, exibir, atualizar e remover pordutos, bem como comprar e vender.
+Launchstore é uma aplicação MVC de uma e-commerce. Neste projeto há duas sessões, uma pública e uma privada. A primeira é responsável por exibir os produtos e criar uma conta, já a segunda é responsável por adicionar, exibir, atualizar e remover produtos, bem como comprar e vender.
 </p>
 
 <p>&nbsp;</p>
